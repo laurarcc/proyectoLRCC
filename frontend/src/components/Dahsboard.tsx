@@ -38,7 +38,7 @@ const itemInitialState: itemtype = {
 
 function Dahsboard() {
     //Una variable en la que almacenmos los datos obtenidos del select
-    const [tableData, setTableData] = useState([])
+    const [tableData, setTableData] = useState<itemtype[]>([])
     const  [inicio, setInicio] = useState(true)
     const [item, setItem] = useState(itemInitialState)
     const userData = useSelector((state: RootState) => state.authenticator)
