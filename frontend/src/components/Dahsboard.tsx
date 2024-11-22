@@ -15,6 +15,9 @@ import {
 import {useEffect, useState} from "react";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import Grid from "@mui/material/Grid2";
+import {useSelector} from "react-redux";
+import {RootState} from "../store";
+import * as React from "react";
 
 interface itemtype {
     id?: number
@@ -38,6 +41,7 @@ function Dahsboard() {
     const [tableData, setTableData] = useState([])
     const  [inicio, setInicio] = useState(true)
     const [item, setItem] = useState(itemInitialState)
+    const userData = useSelector((state: RootState) => state.authenticator)
 
     async function getData() {
         fetch(`http://localhost:3030/getData`)
@@ -191,9 +195,9 @@ function Dahsboard() {
                                             {row.precio}
                                         </TableCell>
                                         <TableCell>
-                                            <Button onClick={() => handleDeleteItem(row)}>
+                                            {userData.userRol == 'administrador' ? (<Button onClick={() => handleDeleteItem(row)}>
                                                 <DeleteForeverIcon />
-                                            </Button>
+                                            </Button>) : <></>}
                                         </TableCell>
                                     </TableRow>
                                 ))}

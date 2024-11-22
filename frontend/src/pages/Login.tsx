@@ -14,8 +14,6 @@ function Login() {
     const dispatch = useDispatch()
     const [data, setData] = useState({user: '', password: '', open: ''});
     const navigate = useNavigate();
-    const bduser = 'laura';
-    const bdpass = '1234';
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -26,7 +24,7 @@ function Login() {
             .then(response => {
                 console.log('Información que llega a consola')
                 console.log(response.data)
-                if (response.data.length !== 0 && bduser == data.user && bdpass == data.password) {
+                if (response.data.length !== 0) {
                     navigate('/Home');
 
                     dispatch(authActions.login({

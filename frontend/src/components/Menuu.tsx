@@ -13,7 +13,6 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import {Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import HomeIcon from '@mui/icons-material/Home';
@@ -70,8 +69,8 @@ function Menuu() {
                         </ListItemButton>
                     </ListItem>
                 </Link>
-
-                <Link to='/reports' style={{textDecoration: 'none', color: 'black'}}>
+                {userData.userRol == 'administrador' ? (
+                    <Link to='/reports' style={{textDecoration: 'none', color: 'black'}}>
                     <ListItem disablePadding>
                         <ListItemButton>
                             <ListItemIcon>
@@ -80,7 +79,9 @@ function Menuu() {
                             <ListItemText primary="Informes"/>
                         </ListItemButton>
                     </ListItem>
-                </Link>
+                </Link>)
+                    : <></> }
+
 
                 <Link to='/help' style={{textDecoration: 'none', color: 'black'}}>
                     <ListItem disablePadding>
