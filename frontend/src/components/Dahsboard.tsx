@@ -113,10 +113,10 @@ function Dahsboard() {
                        sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh'}}>
                 <Box component='form'>
                     <Grid container spacing={2} sx={{justifyContent: 'center', alignItems: 'center'}}>
-                        <Grid size = {{md:2, xs:6, lg:12}}>
+                        <Grid size = {{md:10, xs:12, lg:12}}>
                             <Typography variant='h2'>Insertar datos : </Typography>
                         </Grid>
-                        <Grid size={{md: 2, xs: 6, lg: 6}}>
+                        <Grid size={{md: 6, xs: 4, lg: 6}}>
                             <TextField
                                 required
                                 label="Nombre"
@@ -126,7 +126,7 @@ function Dahsboard() {
                                 onChange={handleNombre}
                             />
                         </Grid>
-                        <Grid size={{md: 2, xs: 6, lg: 6}}>
+                        <Grid size={{md: 6, xs: 4, lg: 6}}>
                             <TextField
                                 required
                                 label="Marca"
@@ -136,7 +136,7 @@ function Dahsboard() {
                                 onChange={handleMarca}
                             />
                         </Grid>
-                        <Grid size={{md: 2, xs: 6, lg: 8}}>
+                        <Grid size={{md: 4, xs: 6, lg: 8}}>
                             <TextField
                                 required
                                 label="Tipo"
@@ -146,7 +146,7 @@ function Dahsboard() {
                                 onChange={handleTipo}
                             />
                         </Grid>
-                        <Grid size={{md: 10, xs: 6, lg: 4}}>
+                        <Grid size={{md: 4, xs: 6, lg: 4}}>
                             <TextField
                                 required
                                 label="Precio"
