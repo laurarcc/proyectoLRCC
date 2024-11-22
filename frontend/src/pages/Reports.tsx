@@ -2,6 +2,7 @@ import {Button, Typography} from "@mui/material";
 import EjemploInformesAlu from "../components/EjemploInformesAlu.tsx";
 import {useState} from "react";
 import * as React from "react";
+import Menuu from "../components/Menuu.tsx";
 
 function Reports(){
     const [click, setClick] = useState(false)
@@ -18,7 +19,9 @@ function Reports(){
     }
     return(
         <>
-            <Button onClick={handleClick} onSubmit={getData()}>INFORMES COLECCIÓN</Button>
+            <Menuu></Menuu>
+            <EjemploInformesAlu></EjemploInformesAlu>
+            <Button onClick={handleClick}>INFORMES COLECCIÓN</Button>
         </>
     )
 }

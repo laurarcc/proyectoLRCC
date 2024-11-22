@@ -30,9 +30,7 @@ function Login() {
                     dispatch(authActions.login({
                         name: response.data.user,
                         rol: response.data.rol
-
                     }))
-
                 }
             })
     }

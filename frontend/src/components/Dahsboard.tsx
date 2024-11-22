@@ -61,29 +61,22 @@ function Dahsboard() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
         //Para que funcione el fetch hay que iniciar tanto xampp como el backend
         //y el usuario dentro de la base de datos
         fetch(`http://localhost:3030/insertData?nombre=${item.nombre}&marca=${item.marca}&tipo=${item.tipo}&precio=${item.precio})`)
         .then(response => response.json())
             .then(response => {
                 console.log('Respuesta del servidor:', response)
-
-                // Verificar si la respuesta indica éxito (affectedRows > 0)
-                if (response.affectedRows > 0) {
-                    alert('Datos guardados con éxito')
-                } else {
-                    alert('No se pudieron insertar los datos. Intente nuevamente.')
-                }
-
+                setInicio(true)
+                alert("Fila insertada")
             })
     }
-
 
     const handleDeleteItem = (row:itemtype) => {
         fetch(`http://localhost:3030/deleteData?id=${row.id}`)
             .then(response => response.json())
             .then(response => {setInicio(true)})
+        alert("Fila eliminada")
     }
 
     const handleNombre = (e:any) => {
@@ -195,7 +188,7 @@ function Dahsboard() {
                                             {row.precio}
                                         </TableCell>
                                         <TableCell>
-                                            {userData.userRol == 'administrador' ? (<Button onClick={() => handleDeleteItem(row)}>
+                                            {userData.userRol == 'admin' ? (<Button onClick={() => handleDeleteItem(row)}>
                                                 <DeleteForeverIcon />
                                             </Button>) : <></>}
                                         </TableCell>

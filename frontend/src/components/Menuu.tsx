@@ -69,7 +69,7 @@ function Menuu() {
                         </ListItemButton>
                     </ListItem>
                 </Link>
-                {userData.userRol == 'administrador' ? (
+                {userData.userRol == 'admin' ? (
                     <Link to='/reports' style={{textDecoration: 'none', color: 'black'}}>
                     <ListItem disablePadding>
                         <ListItemButton>
@@ -157,7 +157,7 @@ function Menuu() {
                                 </Menu>
                             </div>
                         )}
-                        {userData.userRol == 'administrador' ? (<AdminPanelSettingsIcon sx={{ml:1}}/>) : <PersonOutlineIcon sx={{ml:1}}/>}
+                        {userData.userRol == 'admin' ? (<AdminPanelSettingsIcon sx={{ml:1}}/>) : <PersonOutlineIcon sx={{ml:1}}/>}
                     </Toolbar>
                 </AppBar>
                 <Drawer open={open} onClose={toggleDrawer(false)}>
