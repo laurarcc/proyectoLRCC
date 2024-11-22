@@ -4,6 +4,7 @@ import {useState} from "react";
 import * as React from "react";
 import Menuu from "../components/Menuu.tsx";
 import InformeColeccion from "../components/InformeColeccion.tsx";
+import Toolbar from "@mui/material/Toolbar";
 
 function Reports() {
     const [click, setClick] = useState(false)
@@ -29,10 +30,11 @@ function Reports() {
     return (
         <>
             <Container role={'main'}
-                       sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '80vh'}}>
+                       sx={{alignItems: 'center', minHeight: '80vh'}}>
                 <Box component='form'>
                     <Menuu></Menuu>
-                    <Button onClick={getData} variant='contained'>INFORMES COLECCIÓN</Button>
+                    <Toolbar/>
+                    <Button onClick={getData} variant='contained' sx={{margin:5}}>INFORMES COLECCIÓN</Button>
                     {click ? <InformeColeccion data={data} /> : null }
 
                 </Box>
