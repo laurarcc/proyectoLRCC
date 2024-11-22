@@ -28,8 +28,9 @@ function Login() {
                     navigate('/Home');
 
                     dispatch(authActions.login({
-                        name: data.user,
-                        rol: 'administrador'
+                        name: response.data.user,
+                        rol: response.data.rol
+
                     }))
 
                 }
