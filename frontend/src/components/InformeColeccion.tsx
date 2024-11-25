@@ -1,3 +1,5 @@
+//Esto pertenece a Reportes, lo importamos alli, en Reportes no se hace nada, solo esta llamada
+
 //importo la librería de informes
 import MaterialTable, { Column } from "@material-table/core";
 //Importo la librería que nos permite exportar a CSV y PDF
@@ -38,6 +40,7 @@ function InfromeColeccion({data}:ProductsArray){
     y a data le doy el valor de la variable tableData*/
     return (
         <MaterialTable
+            title="Productos"
             columns={col}
             data={tableData}
             renderSummaryRow={({ column, data }) =>

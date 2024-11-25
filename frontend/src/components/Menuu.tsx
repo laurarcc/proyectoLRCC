@@ -26,13 +26,15 @@ import {RootState} from "../store";
 
 function Menuu() {
     //variables
-    const [auth] = React.useState(false);
+    const [auth] = React.useState(false); //que el usuario está autenticado, en este caso, lo queremos en false para cerrar la sesión
     const [anchorEl, setAnchorEl] = React.useState(null);
     const dispatch = useDispatch();
     const userData = useSelector((state: RootState) => state.authenticator)
     console.log(userData)
     const navigate = useNavigate();
-    const isLoggedin = userData.isAutenticated
+    const isLoggedin = userData.isAutenticated //está usando los datos que guardamos antes en el login, si el usuario se autentifica pasa a true, si no sigue siendo falso
+    //Permite sincronizar un componente cuando cambie algo externo. Que se representa con las dependencias
+    //en este caso el navigate
     useEffect(()=> {
         if (!isLoggedin) {
             navigate('/')
@@ -81,7 +83,6 @@ function Menuu() {
                     </ListItem>
                 </Link>)
                     : <></> }
-
 
                 <Link to='/help' style={{textDecoration: 'none', color: 'black'}}>
                     <ListItem disablePadding>

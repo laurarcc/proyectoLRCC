@@ -40,7 +40,7 @@ function Dahsboard() {
     //Una variable en la que almacenmos los datos obtenidos del select
     const [tableData, setTableData] = useState<itemtype[]>([])
     const  [inicio, setInicio] = useState(true)
-    const [item, setItem] = useState(itemInitialState)
+    const [item, setItem] = useState(itemInitialState) //Declaramos el useState del item de nuestro código
     const userData = useSelector((state: RootState) => state.authenticator)
 
     async function getData() {
@@ -69,6 +69,7 @@ function Dahsboard() {
                 console.log('Respuesta del servidor:', response)
                 setInicio(true)
                 alert("Fila insertada")
+                setItem(itemInitialState)
             })
     }
 
