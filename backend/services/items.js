@@ -1,6 +1,5 @@
 const db = require('./db')
 const helper = require('../helper')
-const config = require('../config')
 
 //Función con la consulta para insertar datos en la base de datos : INSERT
 async function insertData (req, res) {
@@ -8,7 +7,7 @@ async function insertData (req, res) {
     //Para acceder a cada uno de los datos: data.nombre, data.precio, ...
     const data = req.query
     const result = await db.query('insert into coleccion (nombre, marca, tipo, precio) values ( ?, ?, ?, ?)', [data.nombre, data.marca, data.tipo, data.precio])
-    return result.affectedRows
+    return result.affectedRows //esto es un entero porque devuelve cuantas columnas son afectadas
 }
 
 //Función con la consulta de obtener datos de la base de datos : SELECT * FROM COLECCION
@@ -21,7 +20,7 @@ async function getData(req, res){
     const data = helper.emptyOrRows(rows)
     return {
         //Devolvemos el resultado del Select, que está almacenado en la variable data
-        data
+        data //se devuelve directamente los datos del select no el numero de columnas afectadas porque no se cambian nada
     }
 }
 
@@ -34,9 +33,22 @@ async function deleteData (req, res) {
     /*En la variable result se almacena lo que devuelve la consulta. Si accedemos a effectedRow nos da el número de
     * filas de la base de datos que ha sido borrado. Si ese número es mayor que cero es que ha habido borrado en la
     * base de datos. */
+    return result.affectedRows //esto es un entero porque devuelve cuantas columnas son afectadas
+}
+
+/*Funciones que pertenecen a la tabla usuarios*/
+async function insertUser(req, res){
+    const data = req.query
+    const result = await db.query(`insert into usuarios (nombre, login, password, rol) values ( ?, ?, ?, ?)`, [data.nombre, data.login, data.password, data.rol])
     return result.affectedRows
 }
 
+async function getUser(req, res){
+    const rows = await db.query(`SELECT * FROM usuarios`)
+    const data = helper.emptyOrRows(rows)
+    return {data}
+}
+
 //Al final del fichero exporto las funciones getData, insertData y deleteData
-module.exports = { getData, insertData, deleteData}
+module.exports = { getData, insertData, deleteData, insertUser, getUser}
 

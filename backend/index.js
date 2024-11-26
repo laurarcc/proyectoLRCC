@@ -6,7 +6,7 @@ const login = require('./services/login')
 //import el fichero items.js que está en la carpeta services
 const Items = require('./services/items')
 
-//Definimos el puerto por que va a escuchar nuestra API las peticiones
+//Definimos el puerto porque va a escuchar nuestra API las peticiones
 const port  = 3030
 
 const app = express()
@@ -77,6 +77,26 @@ app.get('/deleteData', async function (req, res, next) {
         res.json(await Items.deleteData(req))
     } catch (err) {
         console.error('Error while deleting items ', err.message)
+        next(err)
+    }
+})
+
+//Creación del endpoint : /gestion
+app.get('/insertUser', async function(req, res, next){
+    try{
+        res.json(await Items.insertUser(req))
+    } catch (err) {
+        console.error('Error while inserting items ', err.message)
+        next(err)
+    }
+})
+
+//Creación del endpoint : /gestion
+app.get('/getUser', async function(req, res, next) {
+    try{
+        res.json(await Items.getUser(req))
+    } catch (err) {
+        console.error('Error while getting items ', err.message)
         next(err)
     }
 })

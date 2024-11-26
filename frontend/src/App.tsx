@@ -4,6 +4,7 @@ import Home from './pages/Home.tsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Reports from './pages/Reports.tsx'
 import ErrorPage from "./pages/ErrorPage.tsx";
+import Gestion from "./pages/Gestion.tsx";
 
 //Aquí cargamos la rutas con el createBrowserRouter, que igualamos a una variable llamada router,
 //esta luego la llamamos con <RouterProvider router={}/>
@@ -23,6 +24,9 @@ function App() {
         }, {
         path: 'reports',
           element: <Reports/>
+        }, {
+        path: 'gestion',
+          element: <Gestion />
         }
       ]
     },

@@ -18,6 +18,9 @@ import Grid from "@mui/material/Grid2";
 import {useSelector} from "react-redux";
 import {RootState} from "../store";
 import * as React from "react";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import AdbIcon from "@mui/icons-material/Adb";
+import InsertEmoticonIcon from "@mui/icons-material/InsertEmoticon";
 
 interface itemtype {
     id?: number
@@ -42,6 +45,7 @@ function Dahsboard() {
     const  [inicio, setInicio] = useState(true)
     const [item, setItem] = useState(itemInitialState) //Declaramos el useState del item de nuestro código
     const userData = useSelector((state: RootState) => state.authenticator)
+    const [click, setClick] = useState(true)
 
     async function getData() {
         fetch(`http://localhost:3030/getData`)
@@ -59,10 +63,8 @@ function Dahsboard() {
         setInicio(false)
     }, [inicio])
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e:any) => {
         e.preventDefault();
-        //Para que funcione el fetch hay que iniciar tanto xampp como el backend
-        //y el usuario dentro de la base de datos
         fetch(`http://localhost:3030/insertData?nombre=${item.nombre}&marca=${item.marca}&tipo=${item.tipo}&precio=${item.precio})`)
         .then(response => response.json())
             .then(response => {
@@ -72,7 +74,7 @@ function Dahsboard() {
                 setItem(itemInitialState)
             })
     }
-
+//CUIDADO EN EL FETCH, COPIAR Y PEGAR PORQUE LAS COMILLAS SON UN ROLLO
     const handleDeleteItem = (row:itemtype) => {
         fetch(`http://localhost:3030/deleteData?id=${row.id}`)
             .then(response => response.json())
@@ -87,6 +89,7 @@ function Dahsboard() {
         })
     }
 
+    //Guardo en "e" todas mis variables que se insertan en el formulario, por eso luego en el insert solo llamamos a "e"
     const handleMarca = (e:any) =>{
         setItem({
             ...item,
@@ -157,10 +160,11 @@ function Dahsboard() {
                                 onChange={handlePrecio}
                             />
                         </Grid>
-                        <Grid size={{md:10, xs:12, lg:12}}>
-                        <Button onClick={handleSubmit} variant='contained'> Insertar
-                        </Button>
-                        </Grid>
+
+                            {userData.userRol == 'invitado' ? (<Button onClick={handleSubmit} variant='outlined' disabled={click}> Insertar </Button>) :
+                                 (<Button onClick={handleSubmit} variant='contained'> Insertar </Button>)
+                            }
+
 
 
                     <TableContainer component={Paper} sx={{ magin: 'auto', width: '80%' }}>

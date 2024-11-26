@@ -4,7 +4,7 @@ import * as React from "react";
 import {useSelector} from 'react-redux';
 import {authActions} from '../store/authSlice.ts';
 import {useDispatch} from "react-redux";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -14,26 +14,40 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Menu from '@mui/material/Menu';
-import {Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
+import {Alert, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import HomeIcon from '@mui/icons-material/Home';
 import HelpIcon from '@mui/icons-material/Help';
 import ReportIcon from '@mui/icons-material/Report';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import AdbIcon from '@mui/icons-material/Adb';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 import {RootState} from "../store";
+import CheckIcon from "@mui/icons-material/Check";
 
 
 function Menuu() {
-    //variables
-    const [auth] = React.useState(false); //que el usuario está autenticado, en este caso, lo queremos en false para cerrar la sesión
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    //uso de dispatch
+    //1º Declararlo :
     const dispatch = useDispatch();
-    const userData = useSelector((state: RootState) => state.authenticator)
-    console.log(userData)
-    const navigate = useNavigate();
+    //2º Plantear para que lo necesito :
+    dispatch(authActions.logout()) //en este caso es hacer un logout del usuario
+    //el logout es un método que tiene authActions en authSlice.ts que deja las variables de initialAuthState en 0 de nuevo
+
+
+    //variables
+    const [auth] = useState(false); //que el usuario está autenticado, en este caso, lo queremos en false para cerrar la sesión
+    const [anchorEl, setAnchorEl] = useState(null); //es para el menu, viene predefinido de MUI
+
+    const [open, setOpen] = useState(false); //para el drawer, cerrar y abrirlo
+
+    const userData = useSelector((state: RootState) => state.authenticator) //es un hook que recoge el dato guardado en el hook de dispatch y coge el estado de autenticación
+    console.log(userData) //pasa por consola el userData que a su vez será true o false segun el state.authenticator
+    const navigate = useNavigate(); //para navegar a otra página
     const isLoggedin = userData.isAutenticated //está usando los datos que guardamos antes en el login, si el usuario se autentifica pasa a true, si no sigue siendo falso
     //Permite sincronizar un componente cuando cambie algo externo. Que se representa con las dependencias
+
+
     //en este caso el navigate
     useEffect(()=> {
         if (!isLoggedin) {
@@ -41,23 +55,22 @@ function Menuu() {
         }
     }, [isLoggedin, navigate])
 
-    //metodos
+    //Métodos para abrir y cerrar el menú y drawer
     const handleMenu = (event) => {
-        setAnchorEl(event.currentTarget);
+        setAnchorEl(event.currentTarget); //viene predefinido de MUI (NO TOCAR)
     };
 
     const handleClose = () => {
-        setAnchorEl(null);
+        setAnchorEl(null); //asegura que cuando se le vuelva a dar click se cierre
     };
-
-    const [open, setOpen] = React.useState(false);
 
     const toggleDrawer = (newOpen) => () => {
         setOpen(newOpen);
     };
 
-    dispatch(authActions.logout())
-
+    //Declaramos la DrawerList que es lo que irá dentro del menú donde las 3 rayas.
+    //El link to es como un navigate pero portatil, sin tener que llamar a una clase o tener que importar nada
+    //hay un renderizado condicional según si es admin o no, en caso de que lo sea ve el link informe de lo contrario no
     const DrawerList = (
         <Box sx={{width: 250}} role="presentation" onClick={toggleDrawer(false)}>
             <List>
@@ -82,6 +95,19 @@ function Menuu() {
                         </ListItemButton>
                     </ListItem>
                 </Link>)
+                    : <></> }
+
+                {userData.userRol == 'admin' ? (
+                        <Link to='/gestion' style={{textDecoration: 'none', color: 'black'}}>
+                            <ListItem disablePadding>
+                                <ListItemButton>
+                                    <ListItemIcon>
+                                        <ReportIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary="Gestión usuarios"/>
+                                </ListItemButton>
+                            </ListItem>
+                        </Link>)
                     : <></> }
 
                 <Link to='/help' style={{textDecoration: 'none', color: 'black'}}>
@@ -158,7 +184,10 @@ function Menuu() {
                                 </Menu>
                             </div>
                         )}
-                        {userData.userRol == 'admin' ? (<AdminPanelSettingsIcon sx={{ml:1}}/>) : <PersonOutlineIcon sx={{ml:1}}/>}
+
+                        {userData.userRol == 'admin' ? (<AdminPanelSettingsIcon sx={{ml:1}}/>) :
+                            userData.userRol == 'user' ? (<AdbIcon sx={{ml:1}}/>) : (<InsertEmoticonIcon sx={{ml:1}}/>)
+                            }
                     </Toolbar>
                 </AppBar>
                 <Drawer open={open} onClose={toggleDrawer(false)}>

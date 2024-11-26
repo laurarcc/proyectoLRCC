@@ -24,7 +24,7 @@ function Login() {
                 console.log(response.data) //nos imprime la data (datos) que llegan con el response
 
                 dispatch(authActions.login({
-                    name: response.data.user, //desde el response guardamos el data.user
+                    name: response.data.nombre, //desde el response guardamos el data.user
                     rol: response.data.rol //desde el response guardamos el data.rol, que es el rol que tiene dicho usuario que ingresa
                 }))
 
