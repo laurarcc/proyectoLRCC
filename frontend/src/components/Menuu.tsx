@@ -14,7 +14,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Menu from '@mui/material/Menu';
-import {Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
+import {Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Tooltip} from "@mui/material";
 import HomeIcon from '@mui/icons-material/Home';
 import HelpIcon from '@mui/icons-material/Help';
 import ReportIcon from '@mui/icons-material/Report';
@@ -63,46 +63,54 @@ function Menuu() {
             <List>
                 <Link to='/home' style={{textDecoration: 'none', color: 'black'}}>
                     <ListItem disablePadding>
+                        <Tooltip title={"Inicio"} arrow>
                         <ListItemButton>
                             <ListItemIcon>
                                 <HomeIcon/>
                             </ListItemIcon>
                             <ListItemText primary="Inicio"/>
                         </ListItemButton>
+                        </Tooltip>
                     </ListItem>
                 </Link>
                 {userData.userRol == 'admin' ? (
                     <Link to='/reports' style={{textDecoration: 'none', color: 'black'}}>
                     <ListItem disablePadding>
+                        <Tooltip title={"Informes"} arrow>
                         <ListItemButton>
                             <ListItemIcon>
                                 <ReportIcon />
                             </ListItemIcon>
                             <ListItemText primary="Informes"/>
                         </ListItemButton>
+                        </Tooltip>
                     </ListItem>
                 </Link>)
                     : <></> }
 
-                <Link to='/help' style={{textDecoration: 'none', color: 'black'}}>
+                <Link to={'/Rodriguez_Castellano_Laura_UT3A1.pdf'} style={{textDecoration: 'none', color: 'black'}} target='_blank'>
                     <ListItem disablePadding>
+                        <Tooltip title={"Ayuda"} arrow>
                         <ListItemButton>
                             <ListItemIcon>
                                 <HelpIcon />
                             </ListItemIcon>
                             <ListItemText primary="Ayuda"/>
                         </ListItemButton>
+                        </Tooltip>
                     </ListItem>
                 </Link>
 
                 <Link to='/' style={{textDecoration: 'none', color: 'black'}}>
                     <ListItem disablePadding>
+                        <Tooltip title={"Salir"} arrow>
                         <ListItemButton>
                             <ListItemIcon>
                                 <ExitToAppIcon />
                             </ListItemIcon>
                             <ListItemText primary="Salir"/>
                         </ListItemButton>
+                        </Tooltip>
                     </ListItem>
                 </Link>
             </List>
@@ -114,6 +122,7 @@ function Menuu() {
             <Box sx={{flexGrow: 1}}>
                 <AppBar>
                     <Toolbar>
+                        <Tooltip title={"Menú"} arrow>
                         <IconButton
                             size="large"
                             edge="start"
@@ -125,11 +134,13 @@ function Menuu() {
                             <MenuIcon/>
 
                         </IconButton>
+                        </Tooltip>
                         <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
                             {userData.userName}
                         </Typography>
                         {auth && (
                             <div>
+                                <Tooltip title={"Menu"} arrow>
                                 <IconButton
                                     size="large"
                                     aria-label="account of current user"
@@ -140,6 +151,7 @@ function Menuu() {
                                 >
                                     <AccountCircle/>
                                 </IconButton>
+                                </Tooltip>
                                 <Menu
                                     id="menu-appbar"
                                     anchorEl={anchorEl}

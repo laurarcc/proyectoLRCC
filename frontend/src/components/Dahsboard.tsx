@@ -10,7 +10,7 @@ import {
     TableCell,
     TableContainer,
     TableHead,
-    TableRow, TextField, Typography
+    TableRow, TextField, Tooltip, Typography
 } from "@mui/material";
 import {useEffect, useState} from "react";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
@@ -158,8 +158,10 @@ function Dahsboard() {
                             />
                         </Grid>
                         <Grid size={{md:10, xs:12, lg:12}}>
+                            <Tooltip title={"Insertar"} arrow>
                         <Button onClick={handleSubmit} variant='contained'> Insertar
                         </Button>
+                            </Tooltip>
                         </Grid>
 
 
@@ -189,9 +191,9 @@ function Dahsboard() {
                                             {row.precio}
                                         </TableCell>
                                         <TableCell>
-                                            {userData.userRol == 'admin' ? (<Button onClick={() => handleDeleteItem(row)}>
+                                            {userData.userRol == 'admin' ? (<Tooltip title={"Elimiar"} arrow><Button onClick={() => handleDeleteItem(row)}>
                                                 <DeleteForeverIcon />
-                                            </Button>) : <></>}
+                                            </Button></Tooltip>) : <></>}
                                         </TableCell>
                                     </TableRow>
                                 ))}

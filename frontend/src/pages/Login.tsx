@@ -1,4 +1,4 @@
-import {Alert, Box, Button, Container, Typography} from "@mui/material";
+import {Alert, Box, Button, Container, Tooltip, Typography} from "@mui/material";
 import {useState} from "react";
 import Grid from "@mui/material/Grid2";
 import {TextField} from "@mui/material";
@@ -95,8 +95,10 @@ function Login() {
                         </Grid>
 
                         <Grid size={{md: 8, xs: 8, lg: 8}}>
+                            <Tooltip title={"Acceder"} arrow>
                             <Button type='submit' variant='contained'>Acceder</Button>
-                        </Grid>
+                            </Tooltip>
+                            </Grid>
 
                     </Grid>
 

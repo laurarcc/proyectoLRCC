@@ -1,4 +1,4 @@
-import {Box, Button, Container} from "@mui/material";
+import {Box, Button, Container, Tooltip} from "@mui/material";
 import {useState} from "react";
 import * as React from "react";
 import Menuu from "../components/Menuu.tsx";
@@ -44,7 +44,9 @@ function Reports() {
                 <Box component='form'>
                     <Menuu></Menuu>
                     <Toolbar/>
+                    <Tooltip title={"Informes Coleccion"} arrow>
                     <Button onClick={getData} variant='contained' sx={{margin:5}}>INFORMES COLECCIÓN</Button>
+                    </Tooltip>
                     {click ? <InformeColeccion data={data} /> : null }
 
                 </Box>
