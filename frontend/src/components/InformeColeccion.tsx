@@ -20,6 +20,7 @@ interface ProductsArray {
 
 function InfromeColeccion({data}:ProductsArray){
     const datos = data //para hacerlo mas comodo llamamos a otra variable que se usa internamente
+
 //Creación de los datos que corresponde con la base de datos nuestra:
     const col: Array<Column<Products>> = [
         { title: "Nombre", field: "nombre", filtering:false},
@@ -40,9 +41,10 @@ function InfromeColeccion({data}:ProductsArray){
     y a data le doy el valor de la variable tableData*/
     return (
         <MaterialTable
-            title="Productos"
-            columns={col}
-            data={tableData}
+            title="Productos" //título de la tabla
+            columns={col} //col es un array con columnas del tipo products (interface products)
+            data={tableData} //el map que recoge los datos desde el data y a su vez desde el reports que pasa los datos
+            //suma los precios
             renderSummaryRow={({ column, data }) =>
                 column.field === "precio"
                     ? {
@@ -51,6 +53,10 @@ function InfromeColeccion({data}:ProductsArray){
                     }
                     : undefined
             }
+
+            //hace que el informe sea exportable como PDF o CSV, a su vez le podemos poner un nombre como "myPdfFileName"
+            //dentro del options solo entra lo que se pueda cambiar en la tabla informes, como un filtrado, pero sumar/restar
+            //y derivados van fueran porque no son opciones, simplemente se hacen y ya
             options={{
                 exportMenu:[
                     {
@@ -61,8 +67,9 @@ function InfromeColeccion({data}:ProductsArray){
                         exportFunc:(cols, datas)=>ExportCsv(cols,datas,"myCsvFileName")
                     },
                 ],
-                columnsButton:true,
-                filtering:true,
+
+                columnsButton:true, //para poder elegir que columnas quiere mostrar el usuario
+                filtering:true, //para que se pueda filtrar la tabla
 
             }}
         />
