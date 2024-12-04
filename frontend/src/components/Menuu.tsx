@@ -33,6 +33,7 @@ function Menuu() {
     console.log(userData)
     const navigate = useNavigate();
     const isLoggedin = userData.isAutenticated
+
     useEffect(()=> {
         if (!isLoggedin) {
             navigate('/')

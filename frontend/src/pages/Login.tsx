@@ -12,13 +12,12 @@ import {authActions} from "../store/authSlice.ts";
 
 function Login() {
     const dispatch = useDispatch()
-    const [data, setData] = useState({user: '', password: '', open: ''});
+    const [data, setData] = useState({user: '', password: '', acceso: false, alerta: false });
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        //Para que funcione el fetch hay que iniciar tanto xampp como el backend
-        //y el usuario dentro de la base de datos
+
         fetch(`http://localhost:3030/login?user=${data.user}&password=${data.password}`)
             .then(response => response.json())
             .then(response => {
@@ -26,13 +25,31 @@ function Login() {
                 console.log(response.data)
                 if (response.data.length !== 0) {
                     navigate('/Home');
-
+                    handleAlertSuccess()
                     dispatch(authActions.login({
                         name: response.data.user,
                         rol: response.data.rol
                     }))
+                } else {
+                    handleAlertError()
                 }
             })
+    }
+
+    const handleAlertError = () =>{
+        setData({
+            ...data,
+            acceso: false,
+            alerta: true
+        })
+    }
+
+    const handleAlertSuccess = () =>{
+        setData({
+            ...data,
+            acceso: true,
+            alerta: true
+        })
     }
 
     const handleUser = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -85,18 +102,14 @@ function Login() {
                         <Grid size={{md: 8, xs: 8, lg: 8}}>
                             <Button type='submit' variant='contained'>Acceder</Button>
                         </Grid>
-
+                        <Grid size={{md:8, xs:8, lg:8}}>
+                            {data.acceso && data.alerta ? <Alert icon={<CheckIcon fontSize="inherit"/>} severity='success'>Acceso concedido</Alert>
+                                : !data.acceso && data.alerta ? <Alert icon={<CheckIcon fontSize="inherit"/>} severity='error'>Acceso denegado. Usuario / contraseña
+                                    incorrecto</Alert> : null}
+                        </Grid>
                     </Grid>
-
                 </Box>
-                {data.open == '' ? <></> : data.open == 'success' ?
-                    <Alert icon={<CheckIcon fontSize="inherit"/>} severity='success'>Acceso concedido</Alert>
-                    :
-                    <Alert icon={<CheckIcon fontSize="inherit"/>} severity='error'>Acceso denegado. Usuario / contraseña
-                        incorrecto</Alert>}
-                <footer>
-                </footer>
-
+                <footer></footer>
             </Container>
         </>
     )
