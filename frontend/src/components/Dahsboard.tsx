@@ -66,9 +66,11 @@ function Dahsboard() {
         fetch(`http://localhost:3030/insertData?nombre=${item.nombre}&marca=${item.marca}&tipo=${item.tipo}&precio=${item.precio})`)
         .then(response => response.json())
             .then(response => {
-                console.log('Respuesta del servidor:', response)
-                setInicio(true)
-                alert("Fila insertada")
+                if(response === 1) {
+                    alert('Fila insertada')
+                    setInicio(true)
+                    setItem(itemInitialState)
+                }
             })
     }
 
