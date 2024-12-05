@@ -10,7 +10,7 @@ import {
     TableCell,
     TableContainer,
     TableHead,
-    TableRow, TextField, Tooltip, Typography
+    TableRow, TextField, Typography
 } from "@mui/material";
 import {useEffect, useState} from "react";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
@@ -40,7 +40,7 @@ function Dahsboard() {
     //Una variable en la que almacenmos los datos obtenidos del select
     const [tableData, setTableData] = useState<itemtype[]>([])
     const  [inicio, setInicio] = useState(true)
-    const [item, setItem] = useState(itemInitialState) //Declaramos el useState del item de nuestro código
+    const [item, setItem] = useState(itemInitialState)
     const userData = useSelector((state: RootState) => state.authenticator)
 
     async function getData() {
@@ -64,12 +64,13 @@ function Dahsboard() {
         //Para que funcione el fetch hay que iniciar tanto xampp como el backend
         //y el usuario dentro de la base de datos
         fetch(`http://localhost:3030/insertData?nombre=${item.nombre}&marca=${item.marca}&tipo=${item.tipo}&precio=${item.precio})`)
-        .then(response => response.json())
+            .then(response => response.json())
             .then(response => {
-                console.log('Respuesta del servidor:', response)
-                setInicio(true)
-                alert("Fila insertada")
-                setItem(itemInitialState)
+                if(response === 1) {
+                    alert('Fila insertada')
+                    setInicio(true)
+                    setItem(itemInitialState)
+                }
             })
     }
 
@@ -158,48 +159,46 @@ function Dahsboard() {
                             />
                         </Grid>
                         <Grid size={{md:10, xs:12, lg:12}}>
-                            <Tooltip title={"Insertar"} arrow>
-                        <Button onClick={handleSubmit} variant='contained'> Insertar
-                        </Button>
-                            </Tooltip>
+                            <Button onClick={handleSubmit} variant='contained'> Insertar
+                            </Button>
                         </Grid>
 
 
-                    <TableContainer component={Paper} sx={{ magin: 'auto', width: '80%' }}>
-                        <Table sx={{ minWidth: 650 }} aria-label="tabla de objetos">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell align="center">Nombre</TableCell>
-                                    <TableCell align="center">Marca</TableCell>
-                                    <TableCell align="center">Tipo</TableCell>
-                                    <TableCell align="center">Precio</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {tableData.map((row:itemtype)=>(
-                                    <TableRow key={row.id}>
-                                        <TableCell align={"center"}>
-                                            {row.nombre}
-                                        </TableCell>
-                                        <TableCell align={"center"}>
-                                            {row.marca}
-                                        </TableCell>
-                                        <TableCell align={"center"}>
-                                            {row.tipo}
-                                        </TableCell>
-                                        <TableCell align={"center"}>
-                                            {row.precio}
-                                        </TableCell>
-                                        <TableCell>
-                                            {userData.userRol == 'admin' ? (<Tooltip title={"Elimiar"} arrow><Button onClick={() => handleDeleteItem(row)}>
-                                                <DeleteForeverIcon />
-                                            </Button></Tooltip>) : <></>}
-                                        </TableCell>
+                        <TableContainer component={Paper} sx={{ magin: 'auto', width: '80%' }}>
+                            <Table sx={{ minWidth: 650 }} aria-label="tabla de objetos">
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell align="center">Nombre</TableCell>
+                                        <TableCell align="center">Marca</TableCell>
+                                        <TableCell align="center">Tipo</TableCell>
+                                        <TableCell align="center">Precio</TableCell>
                                     </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
+                                </TableHead>
+                                <TableBody>
+                                    {tableData.map((row:itemtype)=>(
+                                        <TableRow key={row.id}>
+                                            <TableCell align={"center"}>
+                                                {row.nombre}
+                                            </TableCell>
+                                            <TableCell align={"center"}>
+                                                {row.marca}
+                                            </TableCell>
+                                            <TableCell align={"center"}>
+                                                {row.tipo}
+                                            </TableCell>
+                                            <TableCell align={"center"}>
+                                                {row.precio}
+                                            </TableCell>
+                                            <TableCell>
+                                                {userData.userRol == 'admin' ? (<Button onClick={() => handleDeleteItem(row)}>
+                                                    <DeleteForeverIcon />
+                                                </Button>) : <></>}
+                                            </TableCell>
+                                        </TableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>
                     </Grid>
                 </Box>
             </Container>
