@@ -49,6 +49,19 @@ async function getUser(req, res){
     return {data}
 }
 
+/*Funciones que pertenecen a la tabla prestamos*/
+async function insertPres(req, res) {
+    const data = req.query
+    const result = await db.query(`insert into prestamos (articulo, persona, fecha) values (?,?,?)`, [data.articulo, data.persona, data.fecha])
+    return result.affectedRows
+}
+
+async function getPres(req, res) {
+    const rows = await db.query(`SELECT * FROM prestamos`)
+    const data = helper.emptyOrRows(rows)
+    return {data}
+}
+
 //Al final del fichero exporto las funciones getData, insertData y deleteData
-module.exports = { getData, insertData, deleteData, insertUser, getUser}
+module.exports = { getData, insertData, deleteData, insertUser, getUser, insertPres, getPres}
 

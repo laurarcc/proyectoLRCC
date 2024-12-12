@@ -100,3 +100,23 @@ app.get('/getUser', async function(req, res, next) {
         next(err)
     }
 })
+
+//Creación del endpoint para : /prestamos
+app.get('/insertPres', async function(req, res, next) {
+    try{
+        res.json(await Items.insertPres(req))
+    } catch (err) {
+        console.error('Error while inserting items ', err.message)
+        next(err)
+    }
+})
+
+//Creación del endpoint para : /prestamos
+app.get('/getPres', async function(req, res, next) {
+    try{
+        res.json(await Items.getPres(req))
+    } catch (err) {
+        console.error('Error while getting items ', err.message)
+        next(err)
+    }
+})

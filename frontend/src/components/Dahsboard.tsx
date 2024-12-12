@@ -161,8 +161,12 @@ function Dahsboard() {
                             />
                         </Grid>
 
-                            {userData.userRol == 'invitado' ? (<Button onClick={handleSubmit} variant='outlined' disabled={click}> Insertar </Button>) :
-                                 (<Button onClick={handleSubmit} variant='contained'> Insertar </Button>)
+                        {userData.userRol == 'user' ? (<Grid size={{md:10, xs:12, lg:12}}>
+                                <Button onClick={handleSubmit} variant='outlined' disabled={click}> Insertar </Button>
+                        </Grid>) :
+                                 (<Grid size={{md:10, xs:12, lg:12}}>
+                                     <Button onClick={handleSubmit} variant='contained'> Insertar </Button>
+                                 </Grid>)
                             }
 
 

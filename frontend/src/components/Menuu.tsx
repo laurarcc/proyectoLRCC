@@ -84,6 +84,18 @@ function Menuu() {
                         </ListItemButton>
                     </ListItem>
                 </Link>
+
+                <Link to='/prestamos' style={{textDecoration: 'none', color: 'black'}}>
+                    <ListItem disablePadding>
+                        <ListItemButton>
+                            <ListItemIcon>
+                                <HomeIcon/>
+                            </ListItemIcon>
+                            <ListItemText primary="Gestión Préstamos"/>
+                        </ListItemButton>
+                    </ListItem>
+                </Link>
+
                 {userData.userRol == 'admin' ? (
                     <Link to='/reports' style={{textDecoration: 'none', color: 'black'}}>
                     <ListItem disablePadding>
@@ -110,7 +122,7 @@ function Menuu() {
                         </Link>)
                     : <></> }
 
-                <Link to='/help' style={{textDecoration: 'none', color: 'black'}}>
+                <Link to='Rodriguez_Castellano_Laura_EXUT4_Manual.pdf' style={{textDecoration: 'none', color: 'black'}}>
                     <ListItem disablePadding>
                         <ListItemButton>
                             <ListItemIcon>
